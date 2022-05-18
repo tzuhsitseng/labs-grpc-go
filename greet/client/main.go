@@ -1,6 +1,7 @@
 package main
 
 import (
+	pb "github.com/tzuhsitseng/labs-grpc-go/greet/proto"
 	"log"
 
 	"google.golang.org/grpc"
@@ -15,4 +16,7 @@ func main() {
 		log.Printf("Failed to connect: %v\n", err)
 	}
 	defer conn.Close()
+
+	c := pb.NewGreetServiceClient(conn)
+	doGreet(c)
 }

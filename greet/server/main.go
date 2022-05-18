@@ -6,13 +6,13 @@ import (
 
 	"google.golang.org/grpc"
 
-	"github.com/tzuhsitseng/labs-grpc-go/greet/proto"
+	pb "github.com/tzuhsitseng/labs-grpc-go/greet/proto"
 )
 
 const addr = ":50051"
 
 type Server struct {
-	proto.GreetServiceServer
+	pb.GreetServiceServer // XXX: maybe embed "UnimplementedGreetServiceServer" is better
 }
 
 func main() {
@@ -24,6 +24,8 @@ func main() {
 	log.Printf("Listening on %s\n", addr)
 
 	s := grpc.NewServer()
+	pb.RegisterGreetServiceServer(s, &Server{})
+
 	if err = s.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve: %v\n", err)
 	}
