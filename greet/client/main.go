@@ -1,8 +1,10 @@
 package main
 
 import (
-	pb "github.com/tzuhsitseng/labs-grpc-go/greet/proto"
 	"log"
+	"time"
+
+	pb "github.com/tzuhsitseng/labs-grpc-go/greet/proto"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -18,5 +20,9 @@ func main() {
 	defer conn.Close()
 
 	c := pb.NewGreetServiceClient(conn)
-	doGreet(c)
+
+	//doGreet(c)
+
+	//doGreetWithDeadline(c, 10*time.Second)
+	doGreetWithDeadline(c, 1*time.Second)
 }
